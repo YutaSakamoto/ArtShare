@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  craft: one
+  start_date: 2018-11-26 17:47:19
+  end_date: 2018-11-26 17:47:19
+  price: 
+  total: 1
+
+two:
+  user: two
+  craft: two
+  start_date: 2018-11-26 17:47:19
+  end_date: 2018-11-26 17:47:19
+  price: 
+  total: 1

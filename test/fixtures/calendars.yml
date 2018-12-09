@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  day: 2018-11-27
+  price: 1
+  status: 1
+  craft: one
+
+two:
+  day: 2018-11-27
+  price: 1
+  status: 1
+  craft: two

@@ -1,0 +1,152 @@
+
+<!-- Image -->
+<div class="row">
+  <div class="col-md-6">
+    <% if @photos.length > 0 %>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <% @photos.each do |photo| %>
+              <li data-target="#myCarousel" data-slide-to="<%= photo.id %>"></li>
+          <% end %>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+          <% @photos.each do |photo| %>
+              <div class="item <%= 'active' if photo.id == @photos[0].id %>">
+                <%= image_tag photo.image.url() %>
+              </div>
+          <% end %>
+
+      </div>
+
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+    <% end %>
+
+    </div>
+
+            <div id="map" style="width: 50%; height: 300px"></div>
+
+            <script src="https://maps.googleapis.com/maps/api/js"></script>
+            <script>
+                function initialize() {
+                  var location = {lat: <%= @craft.latitude %>, lng: <%= @craft.longitude %>};
+                  var map = new google.maps.Map(document.getElementById('map'), {
+                    center: location,
+                    zoom: 14
+                  });
+
+                  var marker = new google.maps.Marker({
+                    position: location,
+                    map: map
+                  });
+
+                  var infoWindow = new google.maps.InfoWindow({
+                    content: '<div id="content"><%= image_tag @craft.cover_photo(:medium) %></div>'
+                  });
+
+                  infoWindow.open(map, marker);
+                }
+
+                google.maps.event.addDomListener(window, 'load', initialize);
+            </script>
+    </div>
+    <br/>
+    <hr/>
+
+<div class="row">
+
+  <!-- LEFT PANEL -->
+  <div class="col-md-7">
+
+    <!-- Listing Name -->
+    <div class="row">
+      <div class="col-md-7">
+        <h1><%= @craft.listing_name %></h1>
+        <%= @craft.address %>
+      </div>
+      <div class="col-md-3 text-center">
+        <%= image_tag avatar_url(@craft.user), class: "img-circle avatar-large" %><br/><br/>
+        <%= @craft.user.fullname %>
+      </div>
+    </div>
+    <hr/>
+
+
+    <!-- About -->
+    <div class="row">
+      <div class="col-md-10">
+        <h3>このバイクについて</h3>
+        <p><%= @craft.summary %></p>
+      </div>
+    </div>
+    <hr/>
+
+
+          <!-- Left and right controls -->
+
+
+    <!-- REVIEWS -->
+    <div class="row">
+      <div class="col-md-12">
+        <h4>
+          <%= pluralize(@guest_reviews.count, "Review from Riders") %>
+          <span id="average_rating"></span>
+        </h4>
+        <div class="container">
+          <div><%= render "reviews/guest_list" %></div>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <hr/>
+
+    <!-- GOOGLE MAP -->
+
+    <!-- NEAR BY craftS -->
+    <div class="row">
+      <h3><i class="fas fa-hand-holding-heart"></i> 近くのバイク <i class="fas fa-hand-holding-heart"></i></h3><br/>
+      <% for craft in @craft.nearbys(10) %>
+          <div class="col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading preview">
+                <%= image_tag craft.cover_photo(:medium) %>
+              </div>
+              <div class="panel-body">
+                <%= link_to craft.listing_name, craft %><br/>
+                <%= craft.distance.round(2) %> km 付近<br/>
+                ¥ <%= craft.price %> / <span>1日</span><br/>
+
+              </div>
+            </div>
+          </div>
+      <% end %>
+    </div>
+
+  </div>
+
+
+
+  <!-- RIGHT PANEL -->
+  <div class="col-md-5">
+    <!-- Reservation Form -->
+    <%= render 'reservations/form' %>
+  </div>
+
+
+<script>
+  $('#average_rating').raty({
+    path: '/assets',
+    readOnly: true,
+    score: <%= @craft.average_rating %>
+  });
+</script>

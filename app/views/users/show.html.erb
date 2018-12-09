@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="center">
+      <%= image_tag avatar_url(@user), class: "avatar-full" %>
+      <% if current_user && current_user != @user %>
+        <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: :post, class: "btn btn-default" %>
+      <% end %>
+    </div>
+    <br/>
+    <div class="panel panel-default">
+      <div class="panel-heading">登録情報</div>
+      <div class="panel-body">
+        <ul class="sidebar-list">
+
+            <li>Email Address<span class="pull-right icon-babu"><i class="fa fa-check-circle-o"></i></span></li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-9">
+    <h2><%= @user.fullname %></h2><br/>
+
+    <div class="description row-space-3">
+      <%= @user.description %>
+    </div>
+
+
+    <div class="row">
+    </div>
+    <br/>
+
+
+  </div>
+</div>

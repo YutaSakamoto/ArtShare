@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-3">
+    <h3><%= current_user.fullname %>   <%= image_tag avatar_url(current_user), class: "img-circle avatar-small" %></h3><hr/>
+      <span>ユーザー紹介：<br/><br/>
+        <%= simple_format current_user.description %></span>
+      <hr/><h4>未読メッセージ</h4>
+        <%= link_to notifications_path do %>
+        <h4 id="num_of_unread"><br/><%= current_user.unread %></h4>
+        <% end %>
+  </div>
+
+  <div class="col-md-9">
+        <br/><h4>あなたの作品 (<%= @crafts.length %>)</h4><hr/>
+        <%= render partial: "crafts/crafts_list", locals: {crafts: @crafts} %>
+
+  </div>
+</div>

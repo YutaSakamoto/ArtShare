@@ -1,0 +1,32 @@
+<ul class="sidebar-list">
+  <li class="sidebar-item">
+    <%= link_to "バイクを貸す", listing_craft_path, class: "sidebar-link active" %>
+    <span class="pull-right text-babu"><i class="fa fa-check"></i></span>
+  </li>
+  <li class="sidebar-item">
+    <%= link_to "価格", pricing_craft_path, class: "sidebar-link active" %>
+    <% if !@craft.price.blank? %>
+      <span class="pull-right text-babu"><i class="fa fa-check"></i></span>
+    <% end %>
+  </li>
+  <li class="sidebar-item">
+    <%= link_to "写真", photo_upload_craft_path, class: "sidebar-link active" %>
+    <% if !@craft.photos.blank? %>
+      <span id="photo_check" class="pull-right text-babu"><i class="fa fa-check"></i></span>
+    <% end %>
+  </li>
+  <li class="sidebar-item">
+    <%= link_to "住所", location_craft_path, class: "sidebar-link active" %>
+    <% if !@craft.address.blank? %>
+      <span class="pull-right text-babu"><i class="fa fa-check"></i></span>
+    <% end %>
+  </li>
+</ul>
+<hr/>
+
+<% is_ready = !@craft.active && !@craft.price.blank? && !@craft.listing_name.blank? && !@craft.photos.blank? && !@craft.address.blank? %>
+
+<%= form_for @craft do |f| %>
+  <%= f.hidden_field :active, value: true %>
+  <%= f.submit "公開する", id: "publish_button", class: "btn btn-normal btn-block", disabled: !is_ready %>
+<% end %>

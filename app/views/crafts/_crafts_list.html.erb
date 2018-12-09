@@ -1,0 +1,22 @@
+<% @crafts.each do |craft| %>
+    <div class="col-md-2">
+      <div class="panel panel-default">
+        <div class="panel-heading preview">
+          <%= image_tag craft.cover_photo(:medium) %>
+        </div>
+        <div class="panel-body">
+          <%= link_to craft.listing_name, craft %><br/>
+          ￥<%= craft.price %> / 1day
+          <div id="star_<%= craft.id %>"></div> <%= pluralize(craft.average_rating, "review") %>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $('#star_<%= craft.id %>').raty({
+        path: '/assets',
+        readOnly: true,
+        score: <%= craft.average_rating %>
+      });
+    </script>
+<% end %>

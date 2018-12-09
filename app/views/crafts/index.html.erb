@@ -1,0 +1,21 @@
+<br/>
+<h3>シェアする作品の管理</h3><hr/>
+<div class="row">
+        <% @crafts.each do |craft| %>
+          <div class="row">
+            <div class="col-md-2">
+              <%= image_tag craft.cover_photo(:thumb) %>
+            </div>
+            <div class="col-md-5">
+              <h4><%= craft.listing_name %></h4>
+            </div>
+            <div class="col-md-2">
+              <h4>￥<%= craft.price %></h4>
+            </div>
+            <div class="col-md-3 right">
+              <%= link_to "アップデート", listing_craft_path(craft), class: "btn btn-form" %>
+            </div>
+          </div>
+          <hr/>
+        <% end %>
+      </div>

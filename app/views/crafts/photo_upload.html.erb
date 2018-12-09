@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-3">
+    <%= render 'craft_menu' %>
+  </div>
+  <div class="col-md-8">
+        <h4 class="text-center">写真をアップロードする</h4><hr/>
+          <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+              <!-- PHOTOS UPLOAD GOES HERE -->
+
+              <%= form_for @craft, url: craft_photos_path(@craft), method: 'post', html: {multipart: true} do |f| %>
+                <div class="row">
+                  <div class="form-group">
+                    <span class="btn btn-default btn-file text-babu">
+                      <i class="fa fa-cloud-upload" aria-hidden="true"></i> 写真を選択する
+                      <%= file_field_tag "images[]", type: :file, multiple: true %>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <%= f.submit "写真をアップデートする", class: "btn btn-form" %>
+                </div>
+
+              <% end %>
+            </div>
+          </div>
+
+          <hr/><div id="photos"><%= render 'photos/photos_list' %></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
